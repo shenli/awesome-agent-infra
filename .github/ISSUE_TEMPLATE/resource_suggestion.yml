@@ -1,0 +1,46 @@
+name: Resource suggestion
+description: Suggest an agent infrastructure resource for the list
+title: "Add: "
+labels: ["resource"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Resource name
+      description: The project, paper, article, docs, book, or video title.
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: URL
+      description: Prefer the canonical project, docs, paper, or article URL.
+    validations:
+      required: true
+  - type: dropdown
+    id: section
+    attributes:
+      label: Suggested section
+      options:
+        - Foundational Articles
+        - Runtime and Control Plane
+        - Tool Protocols and Context Interfaces
+        - Workspace and Runtime State
+        - Sandbox and Execution
+        - Security, Policy, and Governance
+        - Observability and Evaluation
+        - Coding-Agent Workflows
+        - Data Layer and Storage
+        - Books
+        - Videos and Talks
+        - Related Awesome Lists
+        - Patterns
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Why it belongs
+      description: Explain the agent infrastructure lesson in one or two paragraphs.
+    validations:
+      required: true
