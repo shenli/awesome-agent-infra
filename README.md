@@ -89,6 +89,7 @@ Not included:
 | [LangGraph docs](https://docs.langchain.com/oss/python/langgraph/overview) | Docs | Good reference for durable agent orchestration concepts. |
 | [OpenAI Agents SDK Python](https://github.com/openai/openai-agents-python) | SDK | Lightweight SDK for building agentic apps. Useful baseline for minimal abstractions. |
 | [OpenAI Agents SDK TypeScript](https://openai.github.io/openai-agents-js/) | SDK | TypeScript version, useful for JS/TS infrastructure builders. |
+| [Omnigent](https://github.com/omnigent-ai/omnigent) | Meta-harness / control plane | Common orchestration layer over coding agents and custom agents, with policies, sandboxing, shared sessions, and multi-device collaboration. |
 | [OpenHands](https://github.com/OpenHands/OpenHands) | Agent platform | Full open-source software-agent platform with sandboxed execution and developer workflows. |
 | [OpenHands Software Agent SDK](https://github.com/OpenHands/software-agent-sdk) | SDK | Composable SDK for building software-development agents. |
 | [SWE-agent](https://github.com/swe-agent/swe-agent) | Coding-agent scaffold | Simple and influential coding-agent scaffold for GitHub issue solving. |
@@ -149,19 +150,6 @@ Not included:
 | [Git format-patch docs](https://git-scm.com/docs/git-format-patch) | Git docs | Basis for exporting deltas and patch bundles. |
 | [GitHub Pull Requests docs](https://docs.github.com/en/pull-requests) | Workflow docs | Publish target for coding-agent output. |
 | [GitHub Actions docs](https://docs.github.com/en/actions) | CI docs | Common validation stage for agent-produced changes. |
-
-### Workspace Review Questions
-
-- Is workspace state durable beyond the sandbox?
-- Is the source repo directly mutable?
-- Can workspace state be forked?
-- Are snapshots and deltas first-class?
-- Can agent output be discarded safely?
-- Is publish idempotent?
-- Are artifacts stored separately from source changes?
-- Is context materialized as files, prompts, or both?
-- Are secrets excluded from workspace state?
-- Can the system replay or audit what happened?
 
 ## Sandbox and Execution
 
@@ -288,26 +276,6 @@ This section is intentionally larger than a provider list. For agent infrastruct
 | [Fault-Tolerant Sandboxing for AI Coding Agents](https://arxiv.org/abs/2512.12806) | Paper | Transactional sandboxing approach with policy interception and filesystem rollback. |
 | [ceLLMate: Sandboxing Browser AI Agents](https://arxiv.org/abs/2512.12594) | Paper | Browser-level sandboxing framework for reducing prompt-injection blast radius. |
 | [AgentBay](https://arxiv.org/abs/2512.04367) | Paper | Hybrid interaction sandbox for agent and human takeover across Linux, Windows, Android, browser, and code-interpreter environments. |
-
-### Sandbox Review Questions
-
-Use these questions to evaluate sandbox products and architectures:
-
-- What is the isolation boundary: process, container, userspace kernel, microVM, VM, or remote host?
-- Does the sandbox share the host kernel?
-- Is filesystem state ephemeral, durable, or snapshotted?
-- Can network egress be denied or allowlisted?
-- Can secrets be brokered without entering the sandbox?
-- Is there a policy layer for commands, filesystem paths, and network domains?
-- Can the sandbox be forked or snapshotted?
-- How fast is cold start and warm start?
-- Can a human inspect or take over the sandbox?
-- What telemetry is emitted for commands, files, network, and process events?
-- Is cleanup guaranteed after failure?
-- What is the patch cadence for the isolation engine?
-- Does the project expose security posture, CVE history, and fuzzing strategy?
-- Is the sandbox usable headlessly by agents, or does it require interactive auth?
-- Does the platform provide per-run identity, quota, and audit trail?
 
 ### Sandbox Architecture Patterns
 
