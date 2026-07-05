@@ -165,19 +165,164 @@ Not included:
 
 ## Sandbox and Execution
 
+This section is intentionally larger than a provider list. For agent infrastructure, "sandbox" spans several layers:
+
+| Layer | What it controls |
+|---|---|
+| **Managed agent sandboxes** | Hosted or self-hosted environments for code execution, terminal access, files, and long-running agent tasks. |
+| **Browser / desktop sandboxes** | Browser or GUI environments where agents click, type, inspect pages, and sometimes hand control back to humans. |
+| **Container isolation** | Namespaces, cgroups, seccomp, AppArmor/SELinux, rootless containers, and runtime configuration. |
+| **MicroVM / VM isolation** | Stronger isolation boundary for untrusted workloads, usually with higher operational complexity. |
+| **Kernel / process confinement** | Fine-grained syscall, filesystem, network, and process controls. |
+| **Orchestration** | Scheduling, retries, quotas, lifecycle, volumes, networking, and cleanup for many sandbox runs. |
+
+### Managed Agent Sandboxes
+
 | Resource | Type | Why it matters |
 |---|---|---|
-| [E2B docs](https://e2b.dev/docs) | Cloud sandbox docs | Cloud sandbox for AI agents. Useful for remote execution patterns. |
+| [E2B docs](https://e2b.dev/docs) | Cloud sandbox docs | Cloud sandbox for AI agents. Useful for remote execution, code interpreter, and agent runtime patterns. |
 | [E2B GitHub](https://github.com/e2b-dev/e2b) | Repo | Open-source infrastructure for AI code execution sandboxes. |
+| [E2B coding agents docs](https://e2b.dev/docs/use-cases/coding-agents) | Use-case docs | Shows how secure sandboxes are exposed to coding agents with terminal, filesystem, and git access. |
+| [E2B cookbook](https://github.com/e2b-dev/e2b-cookbook) | Examples | Practical examples for using E2B SDKs. |
+| [E2B code interpreter](https://github.com/e2b-dev/code-interpreter) | SDK / project | Reference for safe code execution as a productized primitive. |
 | [Daytona docs](https://www.daytona.io/docs/en/getting-started/) | Sandbox docs | Secure sandbox runtime for AI-generated code. |
 | [Daytona sandboxes docs](https://www.daytona.io/docs/en/sandboxes/) | Sandbox docs | Lifecycle and sandbox concepts. |
+| [Daytona GitHub](https://github.com/daytonaio/daytona) | Repo | Secure and elastic runtime for AI-generated code execution and agent workflows. |
+| [Daytona docs repo](https://github.com/daytonaio/docs) | Docs repo | Useful for understanding their public API and docs structure. |
+| [Modal](https://modal.com/) | Serverless compute | Useful reference for fast, dynamic cloud execution, even if not agent-specific. |
+| [Modal docs](https://modal.com/docs) | Docs | Good reference for serverless execution, container images, sandboxes, secrets, and jobs. |
+| [Modal Sandbox docs](https://modal.com/docs/guide/sandbox) | Sandbox docs | Useful example of exposing programmatic sandboxed command execution. |
+| [Northflank: E2B vs Modal](https://northflank.com/blog/e2b-vs-modal) | Comparison article | Helpful market and architecture comparison for AI code execution sandboxes. |
+
+### Browser, GUI, and Computer-Use Sandboxes
+
+| Resource | Type | Why it matters |
+|---|---|---|
+| [Browserbase docs](https://docs.browserbase.com/) | Browser sandbox docs | Cloud browser infrastructure for browser agents and automation. |
+| [Browserbase](https://www.browserbase.com/) | Browser infrastructure | Useful reference for running browser sessions remotely for agents. |
+| [Stagehand docs](https://docs.stagehand.dev/) | Browser-agent framework docs | Browser automation framework built around AI-assisted browser actions. |
+| [Stagehand GitHub](https://github.com/browserbase/stagehand) | Repo | Open-source browser automation framework for AI agents. |
+| [browser-use GitHub](https://github.com/browser-use/browser-use) | Browser agent project | Popular open-source project for browser-using agents. |
+| [browser-use docs](https://docs.browser-use.com/) | Docs | Practical browser-agent execution and automation patterns. |
+| [Microsoft Playwright MCP](https://github.com/microsoft/playwright-mcp) | MCP server | Browser automation through MCP using Playwright. |
+| [Playwright docs](https://playwright.dev/docs/intro) | Browser automation docs | Useful lower-level browser automation primitive. |
+| [Scrapybara docs](https://docs.scrapybara.com/) | Browser / computer sandbox docs | Reference for hosted computer-use and browser sandboxes. |
+| [Scrapybara GitHub](https://github.com/scrapybara/scrapybara) | Repo | Agent-facing computer-use sandbox project. |
+| [BrowserArena](https://arxiv.org/abs/2510.02418) | Paper / eval | Live open-web agent evaluation platform; useful for understanding web-agent failure modes. |
+| [FP-Agent](https://arxiv.org/abs/2605.01247) | Paper | Fingerprinting AI browsing agents; relevant for browser-agent detection and control. |
+
+### MicroVM and VM Isolation
+
+| Resource | Type | Why it matters |
+|---|---|---|
 | [Firecracker](https://firecracker-microvm.github.io/) | MicroVM docs | Canonical microVM isolation technology. |
 | [Firecracker GitHub](https://github.com/firecracker-microvm/firecracker) | Repo | Source and architecture reference. |
 | [Firecracker paper](https://assets.amazon.science/96/c6/302e527240a3b1f86c86c3e8fc3d/firecracker-lightweight-virtualization-for-serverless-applications.pdf) | Paper | System design behind Firecracker. |
-| [Docker Compose docs](https://docs.docker.com/compose/) | Local dev / runtime | Essential for local agent infra development and test stacks. |
+| [Firecracker getting started](https://github.com/firecracker-microvm/firecracker/blob/main/docs/getting-started.md) | Docs | Practical details of launching a microVM. |
+| [AWS Lambda MicroVMs](https://docs.aws.amazon.com/lambda/latest/dg/lambda-microvms-guide.html) | AWS docs | Shows how Firecracker-style microVMs are used in a production serverless environment. |
+| [Cloud Hypervisor](https://www.cloudhypervisor.org/) | VMM project | Rust-based VMM focused on modern cloud workloads. |
+| [Cloud Hypervisor GitHub](https://github.com/cloud-hypervisor/cloud-hypervisor) | Repo | Useful reference for VMM architecture and cloud VM lifecycle. |
+| [QEMU](https://www.qemu.org/) | Emulator / VMM | General-purpose virtualization and emulation baseline. |
+| [KVM docs](https://www.linux-kvm.org/page/Main_Page) | Kernel virtualization | Linux kernel virtualization foundation used by many VM and microVM systems. |
+| [Kata Containers](https://katacontainers.io/) | Secure containers | Combines container UX with VM isolation. |
+| [Kata Containers docs](https://katacontainers.io/docs/) | Docs | Useful reference for VM-backed container isolation. |
+| [Kata Containers GitHub](https://github.com/kata-containers/kata-containers) | Repo | Implementation reference for container-like VM isolation. |
+
+### Container Isolation and Runtime Hardening
+
+| Resource | Type | Why it matters |
+|---|---|---|
 | [Docker Engine docs](https://docs.docker.com/engine/) | Runtime docs | Container execution basics. |
+| [Docker Compose docs](https://docs.docker.com/compose/) | Local dev / runtime | Essential for local agent infra development and test stacks. |
+| [Docker security docs](https://docs.docker.com/engine/security/) | Security docs | Container security baseline: namespaces, capabilities, seccomp, rootless mode, daemon risks. |
+| [Docker seccomp docs](https://docs.docker.com/engine/security/seccomp/) | Security docs | Default seccomp profile and syscall restrictions. |
+| [Docker rootless mode](https://docs.docker.com/engine/security/rootless/) | Security docs | Useful for reducing daemon and root risk in local sandboxes. |
+| [Docker AppArmor docs](https://docs.docker.com/engine/security/apparmor/) | Security docs | AppArmor profile support for Docker containers. |
+| [containerd](https://containerd.io/) | Runtime | Core container runtime used by many systems. |
+| [containerd GitHub](https://github.com/containerd/containerd) | Repo | Implementation reference for container lifecycle. |
+| [runc](https://github.com/opencontainers/runc) | OCI runtime | Low-level OCI container runtime used by Docker and containerd. |
+| [OCI Runtime Spec](https://github.com/opencontainers/runtime-spec) | Spec | Standard interface for container runtimes. |
+| [Podman](https://podman.io/) | Container runtime | Daemonless container engine, useful for rootless and local execution models. |
+| [Podman docs](https://docs.podman.io/) | Docs | Rootless container and pod execution patterns. |
+
+### Linux Kernel and Process Confinement
+
+| Resource | Type | Why it matters |
+|---|---|---|
+| [Linux namespaces man page](https://man7.org/linux/man-pages/man7/namespaces.7.html) | Kernel docs | Foundation for container isolation. |
+| [Linux cgroups v2 docs](https://docs.kernel.org/admin-guide/cgroup-v2.html) | Kernel docs | CPU, memory, IO, and process resource control. |
+| [seccomp kernel docs](https://docs.kernel.org/userspace-api/seccomp_filter.html) | Kernel docs | Syscall filtering primitive. |
+| [AppArmor docs](https://apparmor.net/) | LSM docs | Mandatory access-control profiles for process confinement. |
+| [SELinux project](https://github.com/SELinuxProject) | LSM project | Mandatory access-control system; important conceptually for strong policy enforcement. |
+| [gVisor docs](https://gvisor.dev/docs/) | Container sandbox docs | Userspace kernel that provides an additional isolation boundary for containers. |
+| [gVisor GitHub](https://github.com/google/gvisor) | Repo | Implementation of a sandboxed container runtime. |
+| [gVisor architecture guide](https://gvisor.dev/docs/architecture_guide/) | Architecture docs | Explains how gVisor interposes between application and host kernel. |
+| [nsjail](https://github.com/google/nsjail) | Process sandbox | Linux namespaces, cgroups, seccomp-bpf, and resource limits in one tool. |
+| [bubblewrap](https://github.com/containers/bubblewrap) | Unprivileged sandbox | Commonly used by Flatpak; useful for lightweight local process isolation. |
+| [Firejail](https://firejail.wordpress.com/) | Linux sandbox | SUID sandbox using namespaces and seccomp. |
+| [Landlock LSM docs](https://docs.kernel.org/userspace-api/landlock.html) | Kernel docs | Unprivileged access-control mechanism for sandboxing. |
+| [Sandlock paper](https://arxiv.org/abs/2605.26298) | Paper | Confines AI agent code using unprivileged Linux primitives. Highly relevant to local-agent execution. |
+| [Sandlock GitHub](https://github.com/multikernel/sandlock) | Repo | Companion implementation for the Sandlock paper. |
+
+### Kubernetes and Cluster Execution
+
+| Resource | Type | Why it matters |
+|---|---|---|
 | [Kubernetes Pods](https://kubernetes.io/docs/concepts/workloads/pods/) | Execution primitive | Smallest deployable unit in Kubernetes. |
 | [Kubernetes Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/) | Execution primitive | Useful for batch agent runs and retryable executions. |
+| [Kubernetes Pod lifecycle](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/) | Lifecycle docs | Useful for mapping agent run state to pod states. |
+| [Kubernetes securityContext](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/) | Security docs | Per-pod and per-container privilege, user, group, and capability settings. |
+| [Kubernetes seccomp](https://kubernetes.io/docs/tutorials/security/seccomp/) | Security docs | Applying seccomp profiles to pods. |
+| [Pod Security Admission](https://kubernetes.io/docs/concepts/security/pod-security-admission/) | Security docs | Cluster-level pod security policy baseline. |
+| [Kubernetes NetworkPolicy](https://kubernetes.io/docs/concepts/services-networking/network-policies/) | Network policy | Useful for sandbox egress control. |
+| [Kubernetes Resource Management](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) | Resource limits | CPU and memory quotas for sandbox runs. |
+| [Kueue](https://kueue.sigs.k8s.io/) | Batch scheduler | Useful for queued agent jobs and batch sandbox execution. |
+| [Argo Workflows](https://argo-workflows.readthedocs.io/) | Workflow engine | Kubernetes-native workflow execution; useful for multi-step sandbox jobs. |
+
+### Sandbox Security Papers and Measurement
+
+| Resource | Type | Why it matters |
+|---|---|---|
+| [AI Code Sandboxes: Comparative Security Study](https://arxiv.org/abs/2606.08433) | Paper | Compares engine-level properties such as attack surface, leakage, stackability, CVE history, patch cadence, and fuzzing. |
+| [AI Sandboxes: Threat Model, Taxonomy, and Measurement Framework](https://arxiv.org/abs/2606.18532) | Paper | Gives a broad sandbox taxonomy and measurement framework for fidelity, controllability, observability, containment, reproducibility, and governance artifacts. |
+| [Fault-Tolerant Sandboxing for AI Coding Agents](https://arxiv.org/abs/2512.12806) | Paper | Transactional sandboxing approach with policy interception and filesystem rollback. |
+| [ceLLMate: Sandboxing Browser AI Agents](https://arxiv.org/abs/2512.12594) | Paper | Browser-level sandboxing framework for reducing prompt-injection blast radius. |
+| [AgentBay](https://arxiv.org/abs/2512.04367) | Paper | Hybrid interaction sandbox for agent and human takeover across Linux, Windows, Android, browser, and code-interpreter environments. |
+
+### Sandbox Review Questions
+
+Use these questions to evaluate sandbox products and architectures:
+
+- What is the isolation boundary: process, container, userspace kernel, microVM, VM, or remote host?
+- Does the sandbox share the host kernel?
+- Is filesystem state ephemeral, durable, or snapshotted?
+- Can network egress be denied or allowlisted?
+- Can secrets be brokered without entering the sandbox?
+- Is there a policy layer for commands, filesystem paths, and network domains?
+- Can the sandbox be forked or snapshotted?
+- How fast is cold start and warm start?
+- Can a human inspect or take over the sandbox?
+- What telemetry is emitted for commands, files, network, and process events?
+- Is cleanup guaranteed after failure?
+- What is the patch cadence for the isolation engine?
+- Does the project expose security posture, CVE history, and fuzzing strategy?
+- Is the sandbox usable headlessly by agents, or does it require interactive auth?
+- Does the platform provide per-run identity, quota, and audit trail?
+
+### Sandbox Architecture Patterns
+
+| Pattern | Why it matters |
+|---|---|
+| **Ephemeral compute, durable workspace** | Sandbox lifetime should not define workspace lifetime. |
+| **No host home mount by default** | Avoid leaking SSH keys, browser sessions, cloud credentials, and shell history. |
+| **No Docker socket mount by default** | Docker socket is usually equivalent to host root. |
+| **Deny network by default for local code execution** | Many agent attacks rely on exfiltration or remote payload fetch. |
+| **Broker secrets outside the sandbox** | Let the control plane perform privileged operations instead of exposing tokens. |
+| **Snapshot before execution** | Enables rollback, diff, and audit. |
+| **Collect delta after execution** | Treat sandbox output as a candidate change, not a side effect. |
+| **Per-run identity and quota** | Required for attribution, rate limiting, and abuse control. |
+| **Separate browser sandbox from code sandbox** | Browser agents face different risks: prompt injection, cookies, authenticated sessions, and web-origin policy. |
+| **Policy as runtime guard** | The sandbox should enforce policy, not merely ask the model to follow instructions. |
 
 ## Security, Policy, and Governance
 
@@ -310,6 +455,9 @@ A production agent run should record:
 | [Face off: VMs vs Containers vs Firecracker](https://www.youtube.com/watch?v=pTQ_jVYhAoc) | Isolation tradeoffs. |
 | [How AWS's Firecracker virtual machines work](https://www.youtube.com/watch?v=BIRv2FnHJAg) | Explainer on Firecracker. |
 | [How AI Agents Execute Code](https://www.youtube.com/watch?v=5FCu6YqWA6U) | Runtime environment for AI code execution. |
+| [On Stream: AI Agents Running Containers with Daytona](https://www.youtube.com/watch?v=zsFMmv9ge4Y) | Practical AI-agent container runtime discussion. |
+| [A cracking time: Exploring Firecracker & MicroVMs](https://www.youtube.com/watch?v=CYCsa5e2vqg) | MicroVM concepts and demos. |
+| [Firecracker/microVM support for Jenkins Slaves](https://www.youtube.com/watch?v=LSUVBGfzf3s) | Example of CI-style microVM worker isolation. |
 
 ### Observability Videos
 
