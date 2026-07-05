@@ -46,6 +46,8 @@ Before submitting:
 - Keep descriptions factual and short.
 - Add only resources you have enough context to evaluate.
 
+Entries are periodically re-verified. Stale, archived, deprecated, or unmaintained projects may be removed even if they were useful historically.
+
 ## Pull Requests
 
 Small focused pull requests are easiest to review. If a PR adds many resources, group them by section and explain the curation rationale in the PR body.
