@@ -162,16 +162,25 @@ Not included:
 
 ## Sandbox and Execution
 
-This section is intentionally larger than a provider list. For agent infrastructure, "sandbox" spans several layers:
+The useful first question is not "which provider?", but "what boundary protects the host?". Agent sandboxes also need a state model, because long-running agents often need files, snapshots, or branches to survive beyond one process.
 
-| Layer                            | What it controls                                                                                                |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| **Managed agent sandboxes**      | Hosted or self-hosted environments for code execution, terminal access, files, and long-running agent tasks.    |
-| **Browser / desktop sandboxes**  | Browser or GUI environments where agents click, type, inspect pages, and sometimes hand control back to humans. |
-| **Container isolation**          | Namespaces, cgroups, seccomp, AppArmor/SELinux, rootless containers, and runtime configuration.                 |
-| **MicroVM / VM isolation**       | Stronger isolation boundary for untrusted workloads, usually with higher operational complexity.                |
-| **Kernel / process confinement** | Fine-grained syscall, filesystem, network, and process controls.                                                |
-| **Orchestration**                | Scheduling, retries, quotas, lifecycle, volumes, networking, and cleanup for many sandbox runs.                 |
+| Isolation model                     | Boundary                                    | Typical fit                                                                       |
+| ----------------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------- |
+| **Process policy sandbox**          | Host process plus OS policy                 | Local tools or helper processes with filesystem and network limits.               |
+| **Shared-kernel container**         | Namespaces, cgroups, capabilities, seccomp  | Dense Linux workloads where compatibility matters more than kernel separation.    |
+| **Userspace-kernel container**      | Container API with syscall mediation        | Stronger isolation than ordinary containers while preserving OCI-style workflows. |
+| **Language or WebAssembly runtime** | Engine-level isolate or capability grants   | Controlled plugins, edge functions, and short-lived extension code.               |
+| **MicroVM**                         | Separate guest kernel per workload          | Untrusted Linux code, generated code, package installs, and agent execution.      |
+| **VM-backed container runtime**     | Container UX backed by lightweight VMs      | Kubernetes or OCI workflows that need a stronger tenant boundary.                 |
+| **Full VM or enclave**              | Hypervisor VM or confidential-computing TEE | Broad OS compatibility or highly sensitive secret-handling paths.                 |
+
+| State model                     | What persists or branches                  | Why it matters for agents                                                 |
+| ------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------- |
+| **Ephemeral runtime**           | Nothing durable by default                 | Good for one-shot code execution and tests.                               |
+| **Durable volume**              | Files survive sandbox stop/start           | Useful for package caches, generated artifacts, and long tasks.           |
+| **Filesystem snapshot**         | Filesystem state can be cloned or restored | Enables branch-mutate-evaluate workflows without rebuilding environments. |
+| **Memory/process snapshot**     | Running state can resume from a checkpoint | Useful for fast warm starts and long-lived interactive sessions.          |
+| **Branchable backing services** | Databases or object state can fork cheaply | Keeps agent experiments isolated beyond the filesystem.                   |
 
 ### Managed Agent Sandboxes
 
