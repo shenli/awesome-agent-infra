@@ -26,7 +26,6 @@ Organized around one question, asked of every component: *what state is this, an
 - [Books](#books)
 - [Videos and Talks](#videos-and-talks)
 - [Related Awesome Lists](#related-awesome-lists)
-- [Patterns](#patterns)
 
 ## Scope
 
@@ -289,21 +288,6 @@ This section is intentionally larger than a provider list. For agent infrastruct
 | [ceLLMate: Sandboxing Browser AI Agents](https://arxiv.org/abs/2512.12594)                          | Paper | Browser-level sandboxing framework for reducing prompt-injection blast radius.                                                                                 |
 | [AgentBay](https://arxiv.org/abs/2512.04367)                                                        | Paper | Hybrid interaction sandbox for agent and human takeover across Linux, Windows, Android, browser, and code-interpreter environments.                            |
 
-### Sandbox Architecture Patterns
-
-| Pattern                                              | Why it matters                                                                                                 |
-| ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| **Ephemeral compute, durable workspace**             | Sandbox lifetime should not define workspace lifetime.                                                         |
-| **No host home mount by default**                    | Avoid leaking SSH keys, browser sessions, cloud credentials, and shell history.                                |
-| **No Docker socket mount by default**                | Docker socket is usually equivalent to host root.                                                              |
-| **Deny network by default for local code execution** | Many agent attacks rely on exfiltration or remote payload fetch.                                               |
-| **Broker secrets outside the sandbox**               | Let the control plane perform privileged operations instead of exposing tokens.                                |
-| **Snapshot before execution**                        | Enables rollback, diff, and audit.                                                                             |
-| **Collect delta after execution**                    | Treat sandbox output as a candidate change, not a side effect.                                                 |
-| **Per-run identity and quota**                       | Required for attribution, rate limiting, and abuse control.                                                    |
-| **Separate browser sandbox from code sandbox**       | Browser agents face different risks: prompt injection, cookies, authenticated sessions, and web-origin policy. |
-| **Policy as runtime guard**                          | The sandbox should enforce policy, not merely ask the model to follow instructions.                            |
-
 ## Security, Policy, and Governance
 
 | Resource                                                                                                         | Type               | Why it matters                                                                |
@@ -315,19 +299,6 @@ This section is intentionally larger than a provider list. For agent infrastruct
 | [Runtime Governance for Policy-Constrained Execution](https://arxiv.org/abs/2604.07833)                          | Paper              | Good argument for separating agent cognition from runtime policy enforcement. |
 | [AgentWall: A Runtime Safety Layer for Local AI Agents](https://arxiv.org/abs/2605.16265)                        | Paper              | Runtime safety layer for local agents.                                        |
 | [Security Engineering, Ross Anderson](https://www.cl.cam.ac.uk/archive/rja14/book.html)                          | Book               | Deep reference for security engineering, access control, and threat modeling. |
-| MCP security best practices                                                                                      | Security docs      | Protocol-level security recommendations.                                      |
-| MCP Safety Audit                                                                                                 | Paper              | Concrete MCP exploit cases.                                                   |
-
-### Policy Patterns
-
-| Pattern                        | Why it matters                                                                 |
-| ------------------------------ | ------------------------------------------------------------------------------ |
-| **Least-privilege tools**      | Tools should expose narrow actions, not broad shells.                          |
-| **Workspace access grants**    | Short-lived scoped access to workspace paths and operations.                   |
-| **Brokered secrets**           | Agents request operations; the platform uses secrets without exposing them.    |
-| **Publish approval**           | Source-of-truth changes require explicit publish.                              |
-| **Policy as transition guard** | Policy should protect state transitions, not only command execution.           |
-| **Audit-first execution**      | Every action should be attributable and replayable.                            |
 
 ## Observability and Evaluation
 
@@ -365,17 +336,11 @@ A production agent run should record:
 
 ## Coding-Agent Workflows
 
-| Resource                                                                                                              | Type                   | Why it matters                                               |
-| --------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------ |
-| SWE-agent                                                                                                             | Agent scaffold         | Important baseline for issue-solving agents.                 |
-| mini-SWE-agent                                                                                                        | Minimal implementation | Useful for understanding how small the loop can be.          |
-| SWE-bench                                                                                                             | Benchmark              | Standard benchmark for GitHub issue resolution.              |
-| AIDev                                                                                                                 | Paper                  | Real-world agent-authored PR study.                          |
-| [OpenHands GitHub Action](https://docs.openhands.dev/openhands/usage/run-openhands/github-action)                     | Workflow docs          | Example of integrating a coding agent into GitHub workflows. |
-| [OpenHands automated code review](https://docs.openhands.dev/openhands/usage/use-cases/code-review)                   | Workflow docs          | Coding-agent code review flow.                               |
-| GitHub MCP Server                                                                                                     | MCP server             | Agent integration with GitHub issues, repos, and PRs.        |
-| [GitHub Copilot: The agent awakens](https://github.blog/news-insights/product-news/github-copilot-the-agent-awakens/) | Product / workflow     | Useful view into mainstream coding-agent workflows.          |
-| OpenAI Codex AGENTS.md example                                                                                        | Repo config            | Example context file for a coding-agent project.             |
+| Resource                                                                                                              | Type               | Why it matters                                               |
+| --------------------------------------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------ |
+| [OpenHands GitHub Action](https://docs.openhands.dev/openhands/usage/run-openhands/github-action)                     | Workflow docs      | Example of integrating a coding agent into GitHub workflows. |
+| [OpenHands automated code review](https://docs.openhands.dev/openhands/usage/use-cases/code-review)                   | Workflow docs      | Coding-agent code review flow.                               |
+| [GitHub Copilot: The agent awakens](https://github.blog/news-insights/product-news/github-copilot-the-agent-awakens/) | Product / workflow | Useful view into mainstream coding-agent workflows.          |
 
 ## Data Layer and Storage
 
@@ -395,12 +360,11 @@ Agent definitions, identity, permissions, config, source references, and low-vol
 
 Agent runs are easiest to debug and replay when prompts, model calls, tool calls, decisions, file changes, and checkpoints are recorded as ordered history. Some frameworks implement replay and branching at the framework layer; storage choices need to preserve the semantics those features depend on.
 
-| Resource                                                                                                                                    | Why it matters                                                                                            |
-| ------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| [LangGraph persistence and time travel](https://docs.langchain.com/oss/python/langgraph/persistence)                                        | Framework-level checkpointing, replay, and forking show concrete requirements for durable run history.    |
-| [HumanLayer: Factor 12, Stateless Reducer](https://github.com/humanlayer/12-factor-agents/blob/main/content/factor-12-stateless-reducer.md) | Frames agent execution as deterministic reduction over persisted events.                                  |
-| OpenRath: Session-Centered Runtime State for Agent Systems                                                                                  | Programming-model argument for treating sessions as first-class state rather than incidental transcripts. |
-| [Claude Code commands: `/branch`](https://code.claude.com/docs/en/commands)                                                                 | Product example where branching a conversation/session is exposed as a native workflow.                   |
+| Resource                                                                                                                                    | Why it matters                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| [LangGraph persistence and time travel](https://docs.langchain.com/oss/python/langgraph/persistence)                                        | Framework-level checkpointing, replay, and forking show concrete requirements for durable run history. |
+| [HumanLayer: Factor 12, Stateless Reducer](https://github.com/humanlayer/12-factor-agents/blob/main/content/factor-12-stateless-reducer.md) | Frames agent execution as deterministic reduction over persisted events.                               |
+| [Claude Code commands: `/branch`](https://code.claude.com/docs/en/commands)                                                                 | Product example where branching a conversation/session is exposed as a native workflow.                |
 
 ### Workspace and Artifact State
 
@@ -410,8 +374,6 @@ Coding agents and computer-use agents often need durable files, snapshots, forke
 | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | [Replit snapshot engine](https://replit.com/blog/inside-replits-snapshot-engine) | Shows a compute-and-storage fabric where filesystem state is durable and addressable independently of any one container. |
 | [Cloudflare Sandboxes GA](https://blog.cloudflare.com/sandbox-ga/)               | Sandboxes are addressed by name, sleep at zero compute cost, and wake with state intact; only compute is disposable.     |
-| BranchFS                                                                         | Copy-on-write branching filesystem aimed directly at fork/snapshot workspace semantics.                                  |
-| Resilient Write                                                                  | Treats writes as a durable, auditable surface rather than invisible local side effects.                                  |
 
 ### Memory
 
@@ -420,8 +382,6 @@ Long-running agents may need memory beyond a single run. The important infrastru
 | Resource                                                                                                                                     | Why it matters                                                                                                     |
 | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | [AWS Bedrock AgentCore Memory](https://aws.amazon.com/blogs/machine-learning/amazon-bedrock-agentcore-memory-building-context-aware-agents/) | Treats memory branching as a named capability for message edits, what-if exploration, and divergent context paths. |
-| Anthropic: Building with Claude Managed Agents                                                                                               | Describes background memory consolidation for managed agents.                                                      |
-| Letta                                                                                                                                        | Open-source platform centered on stateful agents and memory management.                                            |
 
 ### Observability and Analytics Storage
 
@@ -429,10 +389,8 @@ Trace-shaped analytical reads are a well-understood storage problem, but they ha
 
 | Resource                                                                              | Why it matters                                                                                                 |
 | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| OpenTelemetry                                                                         | Standard event, trace, metric, and log model for instrumenting agent runs.                                     |
 | [ClickHouse](https://clickhouse.com/)                                                 | Common storage engine for high-volume analytical telemetry and trace-style reads.                              |
 | [ClickHouse async inserts](https://clickhouse.com/docs/optimize/asynchronous-inserts) | Useful reference for the visibility and batching tradeoffs that come with high-throughput analytics ingestion. |
-| Langfuse                                                                              | Self-hostable LLM observability stack backed by analytical storage patterns.                                   |
 
 ## Books
 
@@ -442,7 +400,6 @@ Trace-shaped analytical reads are a well-understood storage problem, but they ha
 | [Designing Data-Intensive Applications, O'Reilly](https://www.oreilly.com/library/view/designing-data-intensive-applications/9781098119058/) | Publisher page.                                                                |
 | [Google SRE Books](https://sre.google/books/)                                                                                                | Reliability, operations, incident response, SLOs, and production discipline.   |
 | [Site Reliability Engineering table of contents](https://sre.google/sre-book/table-of-contents/)                                             | Free online SRE book.                                                          |
-| Security Engineering                                                                                                                         | Security, access control, threat modeling, and system design.                  |
 | [Operating Systems: Three Easy Pieces](https://pages.cs.wisc.edu/~remzi/OSTEP/)                                                              | Processes, virtualization, concurrency, persistence, and filesystems.          |
 | [Distributed Systems, Maarten van Steen](https://www.distributed-systems.net/index.php/books/ds4/)                                           | Naming, replication, consistency, coordination, and fault tolerance.           |
 
@@ -501,14 +458,6 @@ Trace-shaped analytical reads are a well-understood storage problem, but they ha
 | [OpenAI Codex Tutorial: AGENTS.md](https://www.youtube.com/watch?v=NlNuoH5PPl4)                                          | Coding-agent repo guidance file usage.      |
 | [Code w/ Claude Developer Conference playlist](https://www.youtube.com/playlist?list=PLf2m23nhTg1P5BsOHUOXyQz5RhfUSSVUi) | Claude Code, MCP, and agent workflow talks. |
 
-### Chinese-language Supplements
-
-| Resource                                                          | Why include                           |
-| ----------------------------------------------------------------- | ------------------------------------- |
-| [MCP 核心架构解析](https://www.bilibili.com/opus/1022254559229116469)   | Chinese overview of MCP architecture. |
-| [\[中文字幕\] MCP 快速入门](https://www.bilibili.com/video/BV1pHdnYyE8v/) | Chinese MCP intro video.              |
-| [MCP 作者详解 MCP 协议](https://www.bilibili.com/video/BV1NwQhYeES3/)   | Bilingual MCP explanation.            |
-
 ## Related Awesome Lists
 
 | List                                                                                                  | Focus                                                         |
@@ -521,124 +470,6 @@ Trace-shaped analytical reads are a well-understood storage problem, but they ha
 | [awesome-ai-sandboxes](https://github.com/tizkovatereza/awesome-ai-sandboxes)                         | AI sandbox providers and runtime environments.                |
 | [awesome-agent-orchestration](https://github.com/vivy-yi/awesome-agent-orchestration)                 | Agent orchestration and multi-agent systems.                  |
 | [awesome-ai-agent-papers](https://github.com/VoltAgent/awesome-ai-agent-papers)                       | Papers on AI agents.                                          |
-
-## Patterns
-
-### Candidate Workspace
-
-Agents should work in a candidate workspace, not directly in the source repo.
-
-```text
-source repo
-  -> candidate workspace
-  -> agent modifies candidate
-  -> diff / tests / review
-  -> publish or discard
-```
-
-Useful resources:
-
-- Git worktree docs
-- Resilient Write
-- BranchFS
-- TClone
-
-### Publish / Discard
-
-Agent output should not automatically become source-of-truth.
-
-A publish operation should record:
-
-- Idempotency key
-- Target type
-- Target branch or PR
-- External URL
-- Status
-- Error if failed
-- Associated workspace delta
-- Actor or approval
-
-Useful resources:
-
-- Temporal durable execution
-- Git apply
-- GitHub Pull Requests
-
-### Brokered Secrets
-
-Agents should not receive long-lived provider credentials by default.
-
-```text
-agent produces candidate output
-platform reviews and approves
-publish broker uses secret from vault
-agent never sees raw token
-```
-
-Useful resources:
-
-- MCP security best practices
-- Security Engineering
-- OWASP Agentic AI threats
-
-### Runtime Governance
-
-Policy should be outside the model loop.
-
-```text
-model proposes action
-runtime checks policy
-tool executes only if approved
-event is recorded
-```
-
-Useful resources:
-
-- Runtime Governance for Policy-Constrained Execution
-- MCP Safety Audit
-- Promptfoo
-
-### Context Provenance
-
-Record what context the agent saw.
-
-Examples:
-
-- AGENTS.md version
-- Task prompt
-- Issue or PR source
-- Context documents
-- Selected files
-- Injected memory
-- Policy profile
-- Workspace snapshot
-- Tool list
-
-Useful resources:
-
-- AGENTS.md
-- Evaluating AGENTS.md
-- Configuring Agentic AI Coding Tools
-
-### Observability by Default
-
-Each run should emit traces and events for:
-
-- Model calls
-- Tool calls
-- Command execution
-- File changes
-- Policy decisions
-- Workspace snapshots
-- Publish attempts
-- Errors and retries
-
-Useful resources:
-
-- OpenTelemetry
-- OpenTelemetry GenAI semantic conventions
-- Langfuse
-- LangSmith observability
 
 ## Contributing
 
