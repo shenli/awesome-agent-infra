@@ -350,7 +350,7 @@ A production agent run should record:
 
 Agent infrastructure usually combines several storage concerns: control-plane records, conversation and run history, workspace state, artifacts, memory, and observability data. This section focuses on reusable storage ideas rather than generic application frameworks.
 
-Note: no purpose-built session-store engine exists yet. The log's contract - idempotent append, read-your-own-tail, fork, and per-session replay - fits neither OLTP nor plain append logs. Pointers welcome.
+> Note: no purpose-built session-store engine exists yet. The session log's contract - idempotent append, read-your-own-tail at low latency, per-session ordered replay, and fork - fits neither OLTP nor plain append logs. Pointers welcome.
 
 ### Control-Plane Metadata
 
@@ -394,10 +394,10 @@ Long-running agents may need memory beyond a single run. The important infrastru
 
 Trace-shaped analytical reads are a well-understood storage problem, but they have different needs than conversation replay or workspace state.
 
-| Resource                                                                              | Why it matters                                                                                                                               |
-| ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| [ClickHouse](https://clickhouse.com/)                                                 | Common storage engine for high-volume analytical telemetry and trace-style reads.                                                            |
-| [ClickHouse async inserts](https://clickhouse.com/docs/optimize/asynchronous-inserts) | Shows why analytics-shaped ingestion can violate session-store expectations: async insert defers visibility and deduplication happens later. |
+| Resource                                                                              | Why it matters                                                                                                                                                            |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [ClickHouse](https://clickhouse.com/)                                                 | Common storage engine for high-volume analytical telemetry and trace-style reads.                                                                                         |
+| [ClickHouse async inserts](https://clickhouse.com/docs/optimize/asynchronous-inserts) | Shows why analytics-shaped engines can fail the session-store contract: async insert defers visibility and deduplication happens later, the opposite of read-your-writes. |
 
 ## Books
 
