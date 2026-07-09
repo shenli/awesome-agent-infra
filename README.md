@@ -315,6 +315,7 @@ The useful first question is not "which provider?", but "what boundary protects 
 | [Langfuse docs](https://langfuse.com/docs)                                                                          | OSS observability      | Open-source LLM tracing, eval, prompt management.      |
 | [Langfuse GitHub](https://github.com/langfuse/langfuse)                                                             | Repo                   | Self-hostable observability platform.                  |
 | [LangSmith observability](https://docs.langchain.com/langsmith/observability)                                       | Observability docs     | Good reference for full-stack LLM/agent observability. |
+| [LangChain: Agent Evaluation Readiness Checklist](https://www.langchain.com/blog/agent-evaluation-readiness-checklist) | Evaluation checklist   | Practical checklist for designing, running, and shipping agent evals. |
 | [Promptfoo](https://github.com/promptfoo/promptfoo)                                                                 | Eval / red-team        | CLI and framework for LLM eval and red-teaming.        |
 | [SWE-bench](https://www.swebench.com/)                                                                              | Benchmark              | Canonical benchmark for real GitHub issue resolution.  |
 | [SWE-bench GitHub](https://github.com/swe-bench/SWE-bench)                                                          | Repo                   | Evaluation harness and datasets.                       |
