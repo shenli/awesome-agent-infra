@@ -21,6 +21,7 @@ Organized around one question, asked of every component: *what state is this, an
 - [Sandbox and Execution](#sandbox-and-execution)
 - [Security, Policy, and Governance](#security-policy-and-governance)
 - [Observability and Evaluation](#observability-and-evaluation)
+- [Harness Self-Improvement](#harness-self-improvement)
 - [Coding-Agent Workflows](#coding-agent-workflows)
 - [Data Layer and Storage](#data-layer-and-storage)
 - [Books](#books)
@@ -39,6 +40,7 @@ Included:
 - Context files and repo-level guidance
 - Security, permissions, and policy
 - Observability, tracing, and evaluation
+- Harness self-improvement loops
 - Coding-agent workflows
 - Relevant systems books and videos
 
@@ -70,7 +72,6 @@ Not included:
 | Resource                                                                                                                                                                 | Layer                           | Why it matters                                                                                                                                         |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | [Anthropic: Building Effective Agents](https://www.anthropic.com/research/building-effective-agents)                                                                     | Runtime                         | Practical guide arguing for simple composable agent patterns instead of over-engineered abstractions.                                                  |
-| [Lilian Weng: Harness Engineering for Self-Improvement](https://lilianweng.github.io/posts/2026-07-04-harness/)                                                         | Harness / runtime               | Frames harnesses as the deployment layer around models: workflow, tools, context, persistent state, permissions, and evals.                            |
 | [Anthropic: Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)                              | Context / Runtime               | Good framing for context as runtime design rather than prompt stuffing.                                                                                |
 | [Anthropic: Writing Effective Tools for AI Agents](https://www.anthropic.com/engineering/writing-tools-for-agents)                                                       | Tooling                         | Useful for designing tool APIs agents can actually use.                                                                                                |
 | [Martin Fowler: Context Engineering for Coding Agents](https://martinfowler.com/articles/exploring-gen-ai/context-engineering-coding-agents.html)                        | Coding agents / Context         | Strong developer-facing explanation of workspace files and repo context for coding agents.                                                             |
@@ -321,6 +322,7 @@ The useful first question is not "which provider?", but "what boundary protects 
 | [SWE-bench](https://www.swebench.com/)                                                                              | Benchmark              | Canonical benchmark for real GitHub issue resolution.  |
 | [SWE-bench GitHub](https://github.com/swe-bench/SWE-bench)                                                          | Repo                   | Evaluation harness and datasets.                       |
 | [SWE-agent experiments](https://github.com/swe-bench/experiments)                                                   | Eval logs              | Open predictions, logs, trajectories, and results.     |
+| [Terminal-Bench](https://www.tbench.ai/)                                                                            | Benchmark              | Terminal-environment benchmark for measuring agent task execution. |
 | [AIDev: Studying AI Coding Agents on GitHub](https://arxiv.org/abs/2602.09185)                                      | Paper                  | Large-scale empirical study of real coding-agent PRs.  |
 
 ### Observability Checklist
@@ -339,6 +341,52 @@ A production agent run should record:
 - External references such as PR URLs
 - Error and retry history
 - Final outcome
+
+## Harness Self-Improvement
+
+Self-improving harnesses use execution evidence to propose, evaluate, and
+promote changes to prompts, skills, tools, memory, settings, or other harness
+surfaces without changing model weights.
+
+| Resource                                                                                              | Type                  | Why it matters                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | --------------------- | -------------------------------------------------------------------------------------------------------- |
+| [Lilian Weng: Harness Engineering for Self-Improvement](https://lilianweng.github.io/posts/2026-07-04-harness/) | Article               | Frames harnesses as the deployment layer around models: workflow, tools, context, state, permissions, and evals. |
+| [Self-Harness: Harnesses That Improve Themselves](https://arxiv.org/abs/2606.09498)                   | Paper                 | Proposes weakness mining, harness proposal, and regression-tested validation from execution traces.      |
+| [Continual Harness](https://arxiv.org/abs/2605.09998)                                                 | Paper                 | Studies online harness adaptation across prompts, sub-agents, skills, and memory for long-running agents. |
+| [Harness Updating Is Not Harness Benefit](https://arxiv.org/abs/2605.30621)                           | Paper                 | Separates producing harness updates from whether task agents actually activate and benefit from them.    |
+| [GEPA](https://arxiv.org/abs/2507.19457)                                                              | Prompt optimization   | Reflective prompt evolution from trajectories; useful contrast for eval-grounded harness optimization.   |
+| [DSPy](https://dspy.ai/)                                                                              | AI systems framework  | Structured LLM programs with optimizers; useful reference for eval-driven prompt and module compilation. |
+
+### Checklist
+
+If an agent can propose changes to its own harness, the improvement loop needs
+production controls, not just a prompt-optimization script:
+
+- Keep raw traces, normalized events, verifier evidence, candidate patches,
+  comparisons, approvals, promotions, and rollbacks linked by stable IDs.
+- Version harness configuration and eval suites immutably, with content hashes
+  at every comparison and promotion boundary.
+- Run each eval attempt in a fresh workspace with deterministic verifiers,
+  explicit wall-clock, turn, cost, and latency budgets, and idempotent recovery.
+- Classify failures from recorded evidence, with event IDs and lower confidence
+  for partial traces or ambiguous patterns.
+- Restrict candidates to explicit editable surfaces, and fail closed on path
+  traversal, escaping symlinks, stale base hashes, protected policy/eval files,
+  hidden state, oversized content, or executable changes.
+- Separate candidate configuration deltas from agent task output deltas, so
+  baseline and candidate runs remain comparable.
+- Compare baseline and candidate by task and repetition, with held-in and
+  held-out sets frozen before evaluation and hidden from proposal context.
+- Treat protected-surface violations, held-out regressions, missing required
+  metrics, incomplete traces, cost increases, latency regressions, and
+  non-activation as hard gates when configured.
+- Promote accepted candidates through the normal workspace, approval, and
+  publish lifecycle; record the actor, patch, previous version, promoted
+  version, and rollback path.
+- Implement rollback as an isolated reverse promotion that detects file
+  divergence instead of overwriting user changes.
+- Keep optional extension telemetry authenticated, bounded, idempotent, and
+  non-blocking so observability failures do not break productive runs.
 
 ## Coding-Agent Workflows
 
