@@ -110,6 +110,7 @@ Not included:
 | [AutoGen](https://github.com/microsoft/autogen)                                                    | Multi-agent framework        | Influential multi-agent framework. Useful historically and architecturally.                                                                  |
 | [Letta](https://github.com/letta-ai/letta)                                                         | Stateful agents / memory     | Platform for stateful agents with advanced memory. Useful for understanding memory-first agent design.                                       |
 | [Letta Code](https://github.com/letta-ai/letta-code)                                               | Coding agent / memory        | Memory-first coding agent. Useful contrast with workspace-first designs.                                                                     |
+| [Agentlas OS](https://github.com/agentlas-ai/Agentlas-OS)                                         | Local agent OS / control plane | Packages and routes agents across multiple LLM runtimes with governed memory, policy gates, MCP/A2A boundaries, and auditable receipts.       |
 
 ### Papers
 
