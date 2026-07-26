@@ -323,6 +323,7 @@ The useful first question is not "which provider?", but "what boundary protects 
 | [SWE-bench GitHub](https://github.com/swe-bench/SWE-bench)                                                          | Repo                   | Evaluation harness and datasets.                       |
 | [SWE-agent experiments](https://github.com/swe-bench/experiments)                                                   | Eval logs              | Open predictions, logs, trajectories, and results.     |
 | [Terminal-Bench](https://www.tbench.ai/)                                                                            | Benchmark              | Terminal-environment benchmark for measuring agent task execution. |
+| [ClawBench](https://github.com/TIGER-AI-Lab/ClawBench)                                                              | Eval infrastructure    | Isolates live-site browser-agent runs and captures replayable traces. |
 | [AIDev: Studying AI Coding Agents on GitHub](https://arxiv.org/abs/2602.09185)                                      | Paper                  | Large-scale empirical study of real coding-agent PRs.  |
 
 ### Observability Checklist
