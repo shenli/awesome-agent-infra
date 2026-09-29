@@ -433,6 +433,7 @@ Coding agents and computer-use agents often need durable files, snapshots, forke
 | [Replit snapshot engine](https://replit.com/blog/inside-replits-snapshot-engine) | Shows a compute-and-storage fabric where filesystem state is durable and addressable independently of any one container. |
 | [Cloudflare Sandboxes GA](https://blog.cloudflare.com/sandbox-ga/)               | Sandboxes are addressed by name, sleep at zero compute cost, and wake with state intact; only compute is disposable.     |
 | [MinIO docs](https://docs.min.io/)                                               | S3-compatible object storage reference for artifacts, logs, and workspace-adjacent binary state.                         |
+| [Questlock](https://github.com/spfuzzylink/questlock) | Single-host Go/SQLite prototype using version checks and durable retry receipts to reject stale agent writes and replay successful artifact publishes. |
 
 ### Memory
 
