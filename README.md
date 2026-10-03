@@ -162,6 +162,7 @@ Not included:
 | [Git format-patch docs](https://git-scm.com/docs/git-format-patch)                                                               | Git docs           | Basis for exporting deltas and patch bundles.                                     |
 | [GitHub Pull Requests docs](https://docs.github.com/en/pull-requests)                                                            | Workflow docs      | Publish target for coding-agent output.                                           |
 | [GitHub Actions docs](https://docs.github.com/en/actions)                                                                        | CI docs            | Common validation stage for agent-produced changes.                               |
+| [Tale sandbox workspace lifecycle](https://docs.tale.dev/platform/admin/sandboxes)                                               | Operations docs    | Separates execution slots and persistent files during reclamation and cleanup.    |
 
 ## Sandbox and Execution
 
