@@ -324,6 +324,7 @@ The useful first question is not "which provider?", but "what boundary protects 
 | [SWE-bench](https://www.swebench.com/)                                                                                 | Benchmark              | Canonical benchmark for real GitHub issue resolution.                 |
 | [SWE-bench GitHub](https://github.com/swe-bench/SWE-bench)                                                             | Repo                   | Evaluation harness and datasets.                                      |
 | [SWE-agent experiments](https://github.com/swe-bench/experiments)                                                      | Eval logs              | Open predictions, logs, trajectories, and results.                    |
+| [OpenClaw Monitor](https://github.com/flik2002/openclaw-monitor)                                                     | OSS observability         | Open-source dashboard for OpenClaw agent runs: token usage, session tracking, 7-day trends. Reads the local SQLite session store; no agent changes required.
 | [Terminal-Bench](https://www.tbench.ai/)                                                                               | Benchmark              | Terminal-environment benchmark for measuring agent task execution.    |
 | [AIDev: Studying AI Coding Agents on GitHub](https://arxiv.org/abs/2602.09185)                                         | Paper                  | Large-scale empirical study of real coding-agent PRs.                 |
 
