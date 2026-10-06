@@ -441,6 +441,7 @@ Long-running agents may need memory beyond a single run. The important infrastru
 | Resource                                                                                                                                     | Why it matters                                                                                                     |
 | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | [AWS Bedrock AgentCore Memory](https://aws.amazon.com/blogs/machine-learning/amazon-bedrock-agentcore-memory-building-context-aware-agents/) | Treats memory branching as a named capability for message edits, what-if exploration, and divergent context paths. |
+| [Hyperconsciousness](https://github.com/louis030195/hyperconsciousness) | Developer-alpha Rust knowledge store illustrating encrypted, signed append-only memory and scoped, expiring access grants for agents. |
 
 ### Observability and Analytics Storage
 
