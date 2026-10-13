@@ -112,6 +112,7 @@ Not included:
 | [AutoGen](https://github.com/microsoft/autogen)                                                    | Multi-agent framework        | Influential multi-agent framework. Useful historically and architecturally.                                                                  |
 | [Letta](https://github.com/letta-ai/letta)                                                         | Stateful agents / memory     | Platform for stateful agents with advanced memory. Useful for understanding memory-first agent design.                                       |
 | [Letta Code](https://github.com/letta-ai/letta-code)                                               | Coding agent / memory        | Memory-first coding agent. Useful contrast with workspace-first designs.                                                                     |
+| [Agent Barn](https://github.com/aai-labs/agent-barn) | Agent control plane | Self-hosted (Apache-2.0) control plane for running agent teams: multi-channel front ends (Slack, Teams, Telegram, Discord, email), durable audit log of every conversation, tool call, log and cost, Helm deployment on your own Kubernetes cluster. |
 
 ### Papers
 
