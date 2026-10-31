@@ -307,6 +307,7 @@ The useful first question is not "which provider?", but "what boundary protects 
 | [Runtime Governance for Policy-Constrained Execution](https://arxiv.org/abs/2604.07833)                          | Paper              | Good argument for separating agent cognition from runtime policy enforcement. |
 | [AgentWall: A Runtime Safety Layer for Local AI Agents](https://arxiv.org/abs/2605.16265)                        | Paper              | Runtime safety layer for local agents.                                        |
 | [Security Engineering, Ross Anderson](https://www.cl.cam.ac.uk/archive/rja14/book.html)                          | Book               | Deep reference for security engineering, access control, and threat modeling. |
+| [HOL Guard](https://github.com/hashgraph-online/hol-guard)                                                                 | Runtime policy tool | Applies local policy and approval checks to supported coding-agent actions; coverage depends on integration hooks. |
 
 ## Observability and Evaluation
 
