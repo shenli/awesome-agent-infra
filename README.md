@@ -212,6 +212,7 @@ The useful first question is not "which provider?", but "what boundary protects 
 | [Stagehand GitHub](https://github.com/browserbase/stagehand)            | Repo                            | Open-source browser automation framework for AI agents.                                    |
 | [browser-use GitHub](https://github.com/browser-use/browser-use)        | Browser agent project           | Popular open-source project for browser-using agents.                                      |
 | [browser-use docs](https://docs.browser-use.com/)                       | Docs                            | Practical browser-agent execution and automation patterns.                                 |
+| [Cloudbrowser](https://cloudbrowser.tv/)                                     | Browser infrastructure          | Private-preview cloud Chrome for agents with isolated persistent sessions, CDP, full-desktop Live View, pause/resume, and forks from paused browsers. |
 | [Microsoft Playwright MCP](https://github.com/microsoft/playwright-mcp) | MCP server                      | Browser automation through MCP using Playwright.                                           |
 | [Playwright docs](https://playwright.dev/docs/intro)                    | Browser automation docs         | Useful lower-level browser automation primitive.                                           |
 | [Scrapybara docs](https://docs.scrapybara.com/)                         | Browser / computer sandbox docs | Reference for hosted computer-use and browser sandboxes.                                   |
