@@ -201,6 +201,7 @@ The useful first question is not "which provider?", but "what boundary protects 
 | [Modal: Code execution sandboxes for browser-use agents](https://modal.com/resources/best-code-execution-sandboxes-browser-use-agents) | Scale note         | Public production-scale numbers for agent sandbox concurrency and session volume.                                 |
 | [Northflank: E2B vs Modal](https://northflank.com/blog/e2b-vs-modal)                                                                   | Comparison article | Helpful market and architecture comparison for AI code execution sandboxes.                                       |
 | [Blaxel Sandboxes](https://docs.blaxel.ai/Sandboxes/Overview)                                                                          | Sandbox docs       | Distinguishes snapshot-backed standby from durable-volume persistence, a useful split for agent workspace design. |
+| [Sandbox0](https://sandbox0.ai/docs/sandbox) | Managed sandbox | Shows gVisor-isolated agent compute with writable RootFS checkpoints that persist across successful pauses. |
 
 ### Browser, GUI, and Computer-Use Sandboxes
 
