@@ -133,6 +133,7 @@ Not included:
 | [MCP specification](https://modelcontextprotocol.io/specification/draft)                                            | Spec              | Protocol details.                                                          |
 | [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)                                        | SDK               | Official TypeScript SDK.                                                   |
 | [MCP servers repository](https://github.com/modelcontextprotocol/servers)                                           | Repo              | Reference and community MCP server directory.                              |
+| [CloudGPU MCP](https://github.com/mrhy7176/cloudgpu-mcp) | GPU tool server | Exposes GPU quoting, budget-bounded jobs, file transfer and teardown as explicit MCP tools. |
 | [GitHub MCP Server](https://github.com/github/github-mcp-server)                                                    | MCP server        | Important integration for coding-agent workflows.                          |
 | [MCP security best practices](https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices)      | Security docs     | Required reading for secure MCP host/server design.                        |
 | [MCP Safety Audit](https://arxiv.org/abs/2504.03767)                                                                | Paper             | Demonstrates real security failures enabled by MCP-style tool integration. |
