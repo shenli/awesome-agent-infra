@@ -208,6 +208,7 @@ The useful first question is not "which provider?", but "what boundary protects 
 | ----------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------ |
 | [Browserbase docs](https://docs.browserbase.com/)                       | Browser sandbox docs            | Cloud browser infrastructure for browser agents and automation.                            |
 | [Browserbase](https://www.browserbase.com/)                             | Browser infrastructure          | Useful reference for running browser sessions remotely for agents.                         |
+| [AdsCrawl](https://www.adscrawl.net/)                                   | Browser infrastructure/API      | Remote browser execution with reusable configurations and Playwright, Puppeteer, or CDP.   |
 | [Stagehand docs](https://docs.stagehand.dev/)                           | Browser-agent framework docs    | Browser automation framework built around AI-assisted browser actions.                     |
 | [Stagehand GitHub](https://github.com/browserbase/stagehand)            | Repo                            | Open-source browser automation framework for AI agents.                                    |
 | [browser-use GitHub](https://github.com/browser-use/browser-use)        | Browser agent project           | Popular open-source project for browser-using agents.                                      |
