@@ -12,6 +12,7 @@ Organized around one question, asked of every component: *what state is this, an
 
 ## Contents
 
+- [Reading Guide](#reading-guide)
 - [Scope](#scope)
 - [Core Concepts](#core-concepts)
 - [Foundational Articles](#foundational-articles)
@@ -27,6 +28,23 @@ Organized around one question, asked of every component: *what state is this, an
 - [Books](#books)
 - [Videos and Talks](#videos-and-talks)
 - [Related Awesome Lists](#related-awesome-lists)
+
+## Reading Guide
+
+Choose a path by the systems question you need to answer. Each section links to
+resources with a short explanation of the infrastructure lesson.
+
+| Question | Start here | Then read |
+| --- | --- | --- |
+| What belongs in an agent runtime? | [Core Concepts](#core-concepts) and [Foundational Articles](#foundational-articles) | [Runtime and Control Plane](#runtime-and-control-plane) |
+| What survives a failed or interrupted run? | [Workspace and Runtime State](#workspace-and-runtime-state) | [Data Layer and Storage](#data-layer-and-storage) |
+| How can an agent execute tools with bounded authority? | [Tool Protocols and Context Interfaces](#tool-protocols-and-context-interfaces) | [Sandbox and Execution](#sandbox-and-execution) and [Security, Policy, and Governance](#security-policy-and-governance) |
+| How do we know a run or harness change helped? | [Observability and Evaluation](#observability-and-evaluation) | [Harness Self-Improvement](#harness-self-improvement) |
+| How do agent changes reach a repository safely? | [Workspace and Runtime State](#workspace-and-runtime-state) | [Coding-Agent Workflows](#coding-agent-workflows) |
+
+For the model-serving and training systems underneath these layers, see
+[LLMSys-PaperList](https://github.com/AmberLJC/LLMSys-PaperList), a companion
+collection organized by systems topic and year.
 
 ## Scope
 

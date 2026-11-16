@@ -38,6 +38,13 @@ Prefer concise entries in the existing table format:
 
 Good entries explain the infrastructure lesson. They should not read like marketing copy.
 
+For papers, include a verified publication year and venue, or label the work as
+a preprint. Use the existing type column where available; in two-column tables,
+append the metadata to the paper title. Link to the primary paper and describe
+the systems contribution, such as state lifetime, scheduling, isolation, or
+recovery semantics. Verify metadata against the paper or proceedings rather
+than inferring a conference year from an arXiv identifier.
+
 Before submitting:
 
 - Check that the resource is not already listed.
@@ -47,6 +54,19 @@ Before submitting:
 - Add only resources you have enough context to evaluate.
 
 Entries are periodically re-verified. Stale, archived, deprecated, or unmaintained projects may be removed even if they were useful historically.
+
+## Navigation and Synthesis
+
+Keep the reading guide and table of contents aligned with the sections. Group
+resources by the infrastructure problem they address. When a paper section
+becomes difficult to scan, group by year within that topic; keep current work
+visible and consider collapsible groups for older papers.
+
+Any trend summary should link to the entries that support it and distinguish
+editorial interpretation from measured results. For counts or charts, document
+the corpus snapshot, inclusion rules, date convention, deduplication, and
+reproduction steps. Counts describe this curated collection, not the whole field;
+label partial years and avoid treating missing entries as proof of a research gap.
 
 ## Pull Requests
 
