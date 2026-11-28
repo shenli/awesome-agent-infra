@@ -344,6 +344,7 @@ The useful first question is not "which provider?", but "what boundary protects 
 | [SWE-agent experiments](https://github.com/swe-bench/experiments)                                                      | Eval logs              | Open predictions, logs, trajectories, and results.                    |
 | [Terminal-Bench](https://www.tbench.ai/)                                                                               | Benchmark              | Terminal-environment benchmark for measuring agent task execution.    |
 | [AIDev: Studying AI Coding Agents on GitHub](https://arxiv.org/abs/2602.09185)                                         | Paper                  | Large-scale empirical study of real coding-agent PRs.                 |
+| [100x Engineer Skill](https://github.com/DeadInternetStudios/100x-engineer-skill) | Skill kit / verification | Open source skills plus a small CLI that gate coding-agent completion on real test runs and formal checks, with run state and evidence kept in files. |
 
 ### Observability Checklist
 
