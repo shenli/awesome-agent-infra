@@ -536,16 +536,17 @@ Trace-shaped analytical reads are a well-understood storage problem, but they ha
 
 ## Related Awesome Lists
 
-| List                                                                                                  | Focus                                                         |
-| ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| [awesome-agentic-ai](https://github.com/mfornos/awesome-agentic-ai)                                   | Broad principles, standards, and technologies for agentic AI. |
-| [awesome-production-agentic-systems](https://github.com/EthicalML/awesome-production-agentic-systems) | Production-oriented libraries and systems.                    |
-| [awesome-harness-engineering](https://github.com/ai-boost/awesome-harness-engineering)                | Harness engineering, tools, evals, memory, MCP, permissions.  |
-| [awesome-agents](https://github.com/kyrolabs/awesome-agents)                                          | General list of AI agents.                                    |
-| [awesome-ai-agents](https://github.com/e2b-dev/awesome-ai-agents)                                     | General autonomous agent list.                                |
-| [awesome-ai-sandboxes](https://github.com/tizkovatereza/awesome-ai-sandboxes)                         | AI sandbox providers and runtime environments.                |
-| [awesome-agent-orchestration](https://github.com/vivy-yi/awesome-agent-orchestration)                 | Agent orchestration and multi-agent systems.                  |
-| [awesome-ai-agent-papers](https://github.com/VoltAgent/awesome-ai-agent-papers)                       | Papers on AI agents.                                          |
+| List                                                                                                  | Focus                                                                                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [awesome-agentic-ai](https://github.com/mfornos/awesome-agentic-ai)                                   | Broad principles, standards, and technologies for agentic AI.                                                                                                   |
+| [awesome-production-agentic-systems](https://github.com/EthicalML/awesome-production-agentic-systems) | Production-oriented libraries and systems.                                                                                                                      |
+| [awesome-harness-engineering](https://github.com/ai-boost/awesome-harness-engineering)                | Harness engineering, tools, evals, memory, MCP, permissions.                                                                                                    |
+| [awesome-agents](https://github.com/kyrolabs/awesome-agents)                                          | General list of AI agents.                                                                                                                                      |
+| [awesome-ai-agents](https://github.com/e2b-dev/awesome-ai-agents)                                     | General autonomous agent list.                                                                                                                                  |
+| [awesome-ai-sandboxes](https://github.com/tizkovatereza/awesome-ai-sandboxes)                         | AI sandbox providers and runtime environments.                                                                                                                  |
+| [awesome-agent-orchestration](https://github.com/vivy-yi/awesome-agent-orchestration)                 | Agent orchestration and multi-agent systems.                                                                                                                    |
+| [awesome-ai-agent-papers](https://github.com/VoltAgent/awesome-ai-agent-papers)                       | Papers on AI agents.                                                                                                                                            |
+| [Agent Infra Index](https://agentinfraindex.com)                                                      | Independent directory, free-tier catalog, and weekly benchmarks for agent infrastructure (sandboxes, browsers, memory, MCP tools), with a read-only MCP server. |
 
 ## Contributing
 
